@@ -1,0 +1,28 @@
+import socket
+
+# create a TCP socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP)
+
+# connect to the server
+client_socket.connect(("192.168.242.128", 8080))
+print("Client connected to the server")
+
+# get the user input radius value
+radius = input("Enter the radius of the sphere: ")
+print("Client entered the radius value:", radius)
+
+# send the radius value to the server
+client_socket.send(radius.encode())
+print("Client sent the radius value to the server")
+
+# receive the sphere volume from the server
+volume = client_socket.recv(1024).decode()
+volume = float(volume)
+print("Client received the sphere volume from the server:", volume)
+
+# display the sphere volume accordingly
+print("The volume of the sphere is", volume)
+
+# close the socket
+client_socket.close()
+
