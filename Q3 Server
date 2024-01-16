@@ -1,0 +1,33 @@
+import socket
+import math
+
+# create a TCP socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM>
+
+# bind the socket to the server address and port
+server_socket.bind(("192.168.242.128", 8080))
+
+# listen for incoming connections
+server_socket.listen(5)
+
+# accept a connection from a client
+client_socket, client_address = server_socket.accept()
+print("Server accepted a connection from", client_address)
+
+# receive the radius value from the client
+radius = client_socket.recv(1024).decode()
+radius = float(radius)
+print("Server received the radius value from the client:", radiu>
+
+# calculate the sphere volume
+volume = (4 / 3) * math.pi * pow(radius, 3)
+print("Server calculated the sphere volume:", volume)
+
+# send the sphere volume to the client
+volume = str(volume)
+client_socket.send(volume.encode())
+print("Server sent the sphere volume to the client")
+
+# close the sockets
+client_socket.close()
+server_socket.close()
